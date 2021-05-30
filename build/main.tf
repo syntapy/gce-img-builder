@@ -10,17 +10,34 @@ resource "google_sourcerepo_repository" "machine_image" {
   ]
 }
 
-resource "google_cloudbuild_trigger" "build_trigger" {
-  name = "image-factory"
+resource "google_sourcerepo_repository" "packer" {
+  name = "packer"
+
+  depends_on = [
+    google_project_service.sourcerepo
+  ]
+}
+
+resource "google_cloudbuild_trigger" "packer_build" {
+  name = "packer"
+  trigger_template {
+    repo_name = google_sourcerepo_repository.packer.name
+    branch_name = "main"
+  }
+
+  filename = "cloudbuild.yaml"
+}
+
+resource "google_storage_bucket" "machine_images" {
+  name = "machine-images-7825343"
+}
+
+resource "google_cloudbuild_trigger" "machine_image_build" {
+  name = "machine-image"
   trigger_template {
     repo_name = google_sourcerepo_repository.machine_image.name
-    tag_name = ".*"
+    branch_name = "main"
   }
 
-  substitutions = {
-    _IMAGE_FAMILY = "centos-8"
-    _IMAGE_ZONE = var.zone
-  }
-
-  filename = "cloudbuild_bt.yaml"
+  filename = "cloudbuild.yaml"
 }
