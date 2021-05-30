@@ -3,10 +3,13 @@
 //  display_name = "Cloudbuild Service Account"
 //}
 
+variable "cloud_build_account" {
+  type = string
+}
+
 resource "google_project_iam_binding" "editor" {
   role = "roles/editor"
-  //members = ["serviceAccount:719483784806@cloudbuild.gserviceaccount.com"]
-  members = ["serviceAccount:373122879979@cloudbuild.gserviceaccount.com"]
+  members = [join(":", ["serviceAccount", var.cloud_build_account])]
 }
 
 resource "google_project_service" "artifacts" {

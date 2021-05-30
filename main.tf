@@ -15,6 +15,10 @@ variable "zone_letter" {
   default = "a"
 }
 
+variable "cloud_build_account" {
+  type = string
+}
+
 locals {
   zone = join("-", [var.region, var.zone_letter])
 }
@@ -36,4 +40,5 @@ provider "google" {
 module "build" {
   source = "./build"
   zone = local.zone
+  cloud_build_account = var.cloud_build_account
 }
