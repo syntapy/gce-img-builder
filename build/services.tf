@@ -1,6 +1,17 @@
+//resource "google_service_account" "build_account" {
+//  account_id   = "packer-builder"
+//  display_name = "Cloudbuild Service Account"
+//}
+
 resource "google_project_iam_binding" "editor" {
   role = "roles/editor"
-  members = ["serviceAccount:99124858490@cloudbuild.gserviceaccount.com"]
+  //members = ["serviceAccount:719483784806@cloudbuild.gserviceaccount.com"]
+  members = ["serviceAccount:373122879979@cloudbuild.gserviceaccount.com"]
+}
+
+resource "google_project_service" "artifacts" {
+  service = "artifactregistry.googleapis.com"
+  disable_dependent_services = true
 }
 
 resource "google_project_service" "sourcerepo" {
@@ -33,10 +44,10 @@ resource "google_project_service" "secretmanager" {
   disable_dependent_services = true
 }
 
-//resource "google_project_service" "compute" {
-//  service = "compute.googleapis.com"
-//}
+resource "google_project_service" "compute" {
+  service = "compute.googleapis.com"
+}
 
-//output "sourcerepo_service" {
-//  value = google_project_service.sourcerepo
-//}
+output "sourcerepo_service" {
+  value = google_project_service.sourcerepo
+}
