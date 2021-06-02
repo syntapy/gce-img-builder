@@ -12,10 +12,10 @@ resource "google_project_iam_binding" "editor" {
   members = [join(":", ["serviceAccount", var.cloud_build_account])]
 }
 
-resource "google_project_iam_binding" "metadata" {
-  role = "roles/compute.instance.Metadata"
-  members = [join(":", ["serviceAccount", var.cloud_build_account])]
-}
+//resource "google_project_iam_binding" "metadata" {
+//  role = "roles/compute.instance.Metadata"
+//  members = [join(":", ["serviceAccount", var.cloud_build_account])]
+//}
 
 //resource "google_project_iam_binding" "source_permission" {
 //  role = "roles/source.writer"
