@@ -19,6 +19,14 @@ variable "cloud_build_account" {
   type = string
 }
 
+variable "account_b" {
+  type = string
+}
+
+variable "account_c" {
+  type = string
+}
+
 locals {
   zone = join("-", [var.region, var.zone_letter])
 }
@@ -41,4 +49,6 @@ module "build" {
   source = "./build"
   zone = local.zone
   cloud_build_account = var.cloud_build_account
+  account_b = var.account_b
+  account_c = var.account_c
 }
