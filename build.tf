@@ -1,7 +1,3 @@
-variable "zone" {
-  type = string
-}
-
 resource "google_sourcerepo_repository" "machine_image" {
   name = "machine-image"
 }

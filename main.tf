@@ -31,24 +31,15 @@ locals {
   zone = join("-", [var.region, var.zone_letter])
 }
 
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "3.69.0"
-    }
-  }
-}
-
 provider "google" {
   project = var.project_id
   region = var.region
 }
 
-module "build" {
-  source = "./build"
-  zone = local.zone
-  cloud_build_account = var.cloud_build_account
-  account_b = var.account_b
-  account_c = var.account_c
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+    }
+  }
 }
