@@ -2,14 +2,14 @@ resource "google_sourcerepo_repository" "machine_image" {
   name = "machine-image"
 }
 
-resource "google_sourcerepo_repository" "packer" {
-  name = "packer"
+resource "google_sourcerepo_repository" "packer_builder" {
+  name = "packer-builder"
 }
 
 resource "google_cloudbuild_trigger" "packer_build" {
   name = "packer"
   trigger_template {
-    repo_name = google_sourcerepo_repository.packer.name
+    repo_name = google_sourcerepo_repository.packer_builder.name
     branch_name = "main"
   }
 
