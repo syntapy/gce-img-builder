@@ -1,45 +1,20 @@
 // ubuntu 18.04
 // m5a.large
 // 2 cpus, 8gb ram, 20gbb hdd
-variable "project_id" {
-  type = string
-}
 
-variable "region" {
-  type = string
-  default = "us-west1"
-}
-
-variable "zone_letter" {
-  type = string
-  default = "a"
-}
-
-variable "cloud_build_account" {
-  type = string
-}
-
-variable "account_b" {
-  type = string
-}
-
-variable "account_c" {
-  type = string
-}
+variable "region" { type = string }
+variable "zone_letter" { type = string }
+variable "project_name" { type = string }
+variable "project_number" { type = string }
+variable "project_id" { type = string }
 
 locals {
   zone = join("-", [var.region, var.zone_letter])
+  cloud_build_account = join("@", [var.project_number, "cloudbuild.gserviceaccount.com"])
+  service_account_member = join(":", ["serviceAccount", local.cloud_build_account])
 }
 
 provider "google" {
   project = var.project_id
   region = var.region
-}
-
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-    }
-  }
 }
