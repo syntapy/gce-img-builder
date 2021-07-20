@@ -9,7 +9,7 @@ resource "google_sourcerepo_repository" "packer_builder" {
 resource "google_cloudbuild_trigger" "packer_build" {
   name = "packer"
   trigger_template {
-    repo_name = google_sourcerepo_repository.packer_builder.name
+    repo_name   = google_sourcerepo_repository.packer_builder.name
     branch_name = "main"
   }
 
@@ -24,7 +24,7 @@ resource "google_cloudbuild_trigger" "machine_image_build" {
   name = "machine-image"
   trigger_template {
     repo_name = google_sourcerepo_repository.machine_image.name
-    tag_name = ".*"
+    tag_name  = ".*"
   }
 
   filename = "cloudbuild.yaml"
