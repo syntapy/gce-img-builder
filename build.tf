@@ -24,7 +24,7 @@ resource "google_cloudbuild_trigger" "machine_image_build" {
   name = "machine-image"
   trigger_template {
     repo_name = google_sourcerepo_repository.machine_image.name
-    tag_name  = ".*"
+    branch_name  = "main"
   }
 
   filename = "cloudbuild.yaml"
