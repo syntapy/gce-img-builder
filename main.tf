@@ -9,9 +9,9 @@ variable "project_number" { type = string }
 variable "project_id" { type = string }
 
 locals {
-  zone                   = join("-", [var.region, var.zone_letter])
-  cloud_build_account    = join("@", [var.project_number, "cloudbuild.gserviceaccount.com"])
-  service_account_member = join(":", ["serviceAccount", local.cloud_build_account])
+  cloud_build_account = join("@", [var.project_number, "cloudbuild.gserviceaccount.com"])
+  cloud_build_member  = join(":", ["serviceAccount", local.cloud_build_account])
+  zone                = join("-", [var.region, var.zone_letter])
 }
 
 provider "google" {
