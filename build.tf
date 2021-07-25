@@ -23,8 +23,8 @@ resource "google_storage_bucket" "machine_images" {
 resource "google_cloudbuild_trigger" "machine_image_build" {
   name = "machine-image"
   trigger_template {
-    repo_name = google_sourcerepo_repository.machine_image.name
-    branch_name  = "main"
+    repo_name   = google_sourcerepo_repository.machine_image.name
+    branch_name = "main"
   }
 
   filename = "cloudbuild.yaml"
