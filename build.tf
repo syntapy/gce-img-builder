@@ -1,9 +1,11 @@
 resource "google_sourcerepo_repository" "machine_image" {
   name = "machine-image"
+  depends_on = [ var.sourcerepo_service ]
 }
 
 resource "google_sourcerepo_repository" "packer_builder" {
   name = "packer-builder"
+  depends_on = [ var.sourcerepo_service ]
 }
 
 resource "google_cloudbuild_trigger" "packer_build" {
@@ -14,10 +16,12 @@ resource "google_cloudbuild_trigger" "packer_build" {
   }
 
   filename = "cloudbuild.yaml"
+  depends_on = [ var.cloudbuild_service ]
 }
 
 resource "google_storage_bucket" "machine_images" {
   name = "machine-images-7825343"
+  depends_on = [ var.sourcerepo_service ]
 }
 
 resource "google_cloudbuild_trigger" "machine_image_build" {
@@ -28,4 +32,5 @@ resource "google_cloudbuild_trigger" "machine_image_build" {
   }
 
   filename = "cloudbuild.yaml"
+  depends_on = [ var.cloudbuild_service ]
 }

@@ -19,3 +19,9 @@ variable "project_number" {
 variable "project_id" {
   type = string
 }
+
+variable "sourcerepo_service" {
+}
+
+variable "cloudbuild_service" {
+}
